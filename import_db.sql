@@ -1,14 +1,17 @@
 PRAGMA foreign_keys = ON;
 
+DROP TABLE IF EXISTS question_likes;
+DROP TABLE IF EXISTS replies;
+DROP TABLE IF EXISTS question_follows;
+DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS users;
+
 CREATE TABLE users (
     id INTEGER PRIMARY KEY,
     fname TEXT NOT NULL,
     lname TEXT NOT NULL
 );
 
-
-DROP TABLE IF EXISTS questions;
 CREATE TABLE questions (
     id INTEGER PRIMARY KEY,
     title TEXT NOT NULL,
@@ -18,7 +21,7 @@ CREATE TABLE questions (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-DROP TABLE IF EXISTS question_follows;
+
 CREATE TABLE question_follows (
     id INTEGER PRIMARY KEY,
     user_id INTEGER NOT NULL,
@@ -28,7 +31,7 @@ CREATE TABLE question_follows (
     FOREIGN KEY (question_id) REFERENCES questions(id)
 );
 
-DROP TABLE IF EXISTS replies;
+
 CREATE TABLE replies (
     id INTEGER PRIMARY KEY,
     question_id INTEGER NOT NULL,
@@ -41,7 +44,7 @@ CREATE TABLE replies (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-DROP TABLE IF EXISTS question_likes;
+
 CREATE TABLE question_likes (
     id INTEGER PRIMARY KEY,
     likes BOOLEAN NOT NULL,
@@ -71,7 +74,10 @@ VALUES
         NULL,
         (SELECT id FROM users WHERE users.fname = 'Kaushal'),
         'Sky is actually green'
-    ),
+    );
+INSERT INTO
+    replies (question_id, parent_id, user_id, body)
+VALUES
     ((SELECT id FROM questions WHERE questions.title = 'Sky'),
         (SELECT id FROM replies WHERE replies.body = 'Sky is actually green'),
         (SELECT id FROM users WHERE users.fname = 'Noam'),
