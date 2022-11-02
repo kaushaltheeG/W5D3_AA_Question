@@ -35,7 +35,7 @@ CREATE TABLE replies (
     parent_id INTEGER,
     user_id INTEGER NOT NULL,
     body TEXT NOT NULL,
-    
+
     FOREIGN KEY (question_id) REFERENCES questions(id),
     FOREIGN KEY (parent_id) REFERENCES replies(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
@@ -67,16 +67,13 @@ VALUES
 INSERT INTO
     replies (question_id, parent_id, user_id, body)
 VALUES
-    ((SELECT id FROM questions WHERE questions.title = 'Sky'), 
-        NULL, 
+    ((SELECT id FROM questions WHERE questions.title = 'Sky'),
+        NULL,
         (SELECT id FROM users WHERE users.fname = 'Kaushal'),
         'Sky is actually green'
     ),
-    ((SELECT id FROM questions WHERE questions.title = 'Sky'), 
-        (SELECT id FROM replies WHERE body = 'Sky is actually green'), 
+    ((SELECT id FROM questions WHERE questions.title = 'Sky'),
+        (SELECT id FROM replies WHERE replies.body = 'Sky is actually green'),
         (SELECT id FROM users WHERE users.fname = 'Noam'),
         'WHATTTT!'
     );
-    
-
-    
