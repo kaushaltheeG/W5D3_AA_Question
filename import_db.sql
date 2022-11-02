@@ -73,7 +73,7 @@ VALUES
         'Sky is actually green'
     ),
     ((SELECT id FROM questions WHERE questions.title = 'Sky'), 
-        (SELECT id FROM replies WHERE replies.id = NULL), 
+        (SELECT id FROM replies WHERE body = 'Sky is actually green'), 
         (SELECT id FROM users WHERE users.fname = 'Noam'),
         'WHATTTT!'
     );
