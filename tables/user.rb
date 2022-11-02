@@ -1,4 +1,5 @@
 require_relative "../questions.rb"
+require_relative "question_follow.rb"
 
 class User
     attr_accessor :fname, :lname, :id
@@ -56,12 +57,19 @@ class User
 
     def authored_questions
         Question.find_by_author_id(self.id)
-    end 
+    end
 
-    def authored_replies 
+    def authored_replies
         Reply.find_by_user_id(self.id)
-    end 
+    end
+
+    def followed_questions
+        QuestionFollow.followed_questions_for_user_id(self.id)
+    end
 end
 
-u = User.all 
-# p u 
+if $PROGRAM_NAME == __FILE__
+    u = User.all
+    p u
+    p u[1].followed_questions
+end

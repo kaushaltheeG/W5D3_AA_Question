@@ -1,3 +1,7 @@
+require_relative "../questions.rb"
+require_relative "question_follow"
+
+
 class Question
     attr_accessor :id, :title, :body, :user_id
 
@@ -24,7 +28,7 @@ class Question
         SQL
         return nil if author.length == 0 #if it doesn't match, it's of length 0
         Question.new(author.first) #just gets the hash from the array
-    end 
+    end
 
     def initialize(options)
         @id = options['id']
@@ -35,10 +39,23 @@ class Question
 
     def author
         self.user_id
-    end 
+    end
 
-    def replies 
+    def replies
         Reply.find_by_question_id(self.id)
-    end 
+    end
 
+    def followers
+        QuestionFollow.followers_for_question_id(self.id)
+    end
+
+end
+
+if $PROGRAM_NAME == __FILE__
+    q = Question.all
+    p q
+    puts
+    p q[0].followers
+    puts
+    p q[2].followers
 end

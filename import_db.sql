@@ -65,7 +65,8 @@ INSERT INTO
     questions (title,body,user_id)
 VALUES
     ('ORM', 'How do we do this project?', (SELECT id FROM users WHERE users.fname = 'Noam')),
-    ('Sky', 'Why is the sky blue', (SELECT id FROM users WHERE users.fname = 'Kaushal'));
+    ('Sky', 'Why is the sky blue', (SELECT id FROM users WHERE users.fname = 'Kaushal')),
+    ('BLAH', 'Why is blah', (SELECT id FROM users WHERE users.fname = 'Kaushal'));
 
 INSERT INTO
     replies (question_id, parent_id, user_id, body)
@@ -83,3 +84,8 @@ VALUES
         (SELECT id FROM users WHERE users.fname = 'Noam'),
         'WHATTTT!'
     );
+
+INSERT INTO
+    question_follows(user_id,question_id)
+VALUES
+    (1,1),(2,2),(2,3);
