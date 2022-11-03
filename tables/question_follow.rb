@@ -49,6 +49,21 @@ class QuestionFollow
 
     end
 
+    def self.most_followed_questions(n)
+        most_followed = QuestionsDatabase.instance.execute(<<-SQL, n)
+            SELECT questions.question
+            FROM users
+            JOIN question_follows
+                ON users.id = question_follows.user_id
+            JOIN questions
+                ON question_follows.question_id = questions.id
+            ORDER BY 
+
+        SQL
+        return nil if user.length == 0
+        user.map {|datum| User.new(datum)}
+    end 
+
     def initialize(options)
         @id = options['id']
         @user_id = options['user_id']

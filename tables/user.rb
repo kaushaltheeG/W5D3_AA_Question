@@ -71,5 +71,6 @@ end
 if $PROGRAM_NAME == __FILE__
     u = User.all
     p u
+    puts 
     p u[1].followed_questions
 end
